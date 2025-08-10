@@ -1,0 +1,36 @@
+<style>
+  @import url('assets/legacy/style.css');
+</style>
+
+<div ng-app="myApp" ng-controller="FormController">
+  <div class="box">
+    <h2>User Form</h2>
+
+    <label>Name:</label>
+    <input type="text" ng-model="user.name" placeholder="Enter name">
+
+    <label>Email:</label>
+    <input type="email" ng-model="user.email" placeholder="Enter email">
+
+    <label>Gender:</label>
+    <select ng-model="user.gender">
+      <option value="">Select gender</option>
+      <option>Male</option>
+      <option>Female</option>
+      <option>Other</option>
+    </select>
+
+    <button ng-click="show = true">Submit</button>
+
+    <div class="output" ng-if="show">
+      <strong>Preview:</strong><br>
+      Name: {{ user.name }} <br>
+      Email: {{ user.email }} <br>
+      Gender: {{ user.gender }}
+    </div>
+  </div>
+</div>
+
+<button (click)="updateAngularJsForm()" style="margin-top:20px;">
+  Fill Form from Angular
+</button>
