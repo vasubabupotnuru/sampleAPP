@@ -1,0 +1,109 @@
+<div ng-app="myApp" ng-controller="TodoController" ngNonBindable>
+  <div class="container">
+    <h2>AngularJS TODO Application</h2>
+  
+    <div class="form-section">
+      <h3 ng-if="!editingTodo">Add New TODO</h3>
+      <h3 ng-if="editingTodo">Edit TODO</h3>
+      
+      <form ng-submit="editingTodo ? updateTodo() : addTodo()" ng-if="!editingTodo">
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input type="text" id="name" ng-model="todoForm.name" placeholder="Enter task name" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <textarea id="description" ng-model="todoForm.description" placeholder="Enter description"></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label for="priority">Priority:</label>
+          <select id="priority" ng-model="todoForm.priority">
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+        </div>
+        
+        <div class="form-actions">
+          <button type="submit">Add TODO</button>
+        </div>
+      </form>
+      
+      <form ng-submit="editingTodo ? updateTodo() : addTodo()" ng-if="editingTodo">
+        <div class="form-group">
+          <label for="edit-name">Name:</label>
+          <input type="text" id="edit-name" ng-model="editingTodo.name" placeholder="Enter task name" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="edit-description">Description:</label>
+          <textarea id="edit-description" ng-model="editingTodo.description" placeholder="Enter description"></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label for="edit-priority">Priority:</label>
+          <select id="edit-priority" ng-model="editingTodo.priority">
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+        </div>
+        
+        <div class="form-actions">
+          <button type="submit">Update TODO</button>
+          <button type="button" ng-click="cancelEdit()">Cancel</button>
+        </div>
+      </form>
+    </div>
+  
+    <div class="todo-list-section">
+      <h3>TODO List ({{ todos.length }} items)</h3>
+      
+      <div ng-if="todos.length === 0" class="no-todos">
+        No Data Found
+      </div>
+      
+      <table ng-if="todos.length > 0" class="todo-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Priority</th>
+            <!-- <th>Status</th> -->
+            <th>Created</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="todo in todos" ng-class="{completed: todo.completed}">
+            <td>{{ todo.name }}</td>
+            <td>{{ todo.description }}</td>
+            <td>
+              <span class="priority" ng-class="todo.priority">
+                {{ todo.priority }}
+              </span>
+            </td>
+            <!-- <td>
+               <span ng-if="!todo.completed" class="status pending">Pending</span> 
+              <span ng-if="todo.completed" class="status completed">Completed</span>
+              <span class="status completed">Completed</span>
+            </td>-->
+            <td>{{ todo.createdAt }}</td>
+            <td class="actions">
+              <!-- <button ng-click="toggleComplete(todo)" class="btn-toggle">
+                {{ todo.completed ? 'Mark Pending' : 'Mark Complete' }}
+              </button> -->
+              <button ng-click="editTodo(todo)" class="btn-edit">Edit</button>
+              <button ng-click="deleteTodo(todo.id)" class="btn-delete">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<button (click)="updateAngularJsForm()" style="margin-top:20px;">
+  Fill Form from Angular
+</button>
